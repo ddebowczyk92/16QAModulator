@@ -1,10 +1,15 @@
 package pl.elka.pttw;
 
 import com.google.common.base.Strings;
+
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.elka.pttw.constellation.Constellation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,13 +34,46 @@ public class Modulator {
         this.modulation = modulation;
         this.bitsPerBaud = bitsPerBaud;
     }
-
-    public String modulate(String inputData) {
+    
+	public XYDataset XYDataset(String inputData) {
+        inputData = padStringIfNecessery(inputData);
+        List<String> grayCodeData = splitIntoGrayCodeStrings(inputData);
+        double ampl, phase, x, y;
+        
+        final XYSeries constellation = new XYSeries("constellation");
+        for(int i=0; i<grayCodeData.size(); i++){
+        	ampl=(double) modulation.getAmplitudeAndPhase(grayCodeData.get(i)).getKey();
+        	phase=(double) modulation.getAmplitudeAndPhase(grayCodeData.get(i)).getValue();
+        	x=ampl*Math.cos(Math.toRadians(phase));
+        	y=ampl*Math.sin(Math.toRadians(phase));
+        	constellation.add(x, y);
+        }
+        
+		final XYSeriesCollection dataset = new XYSeriesCollection();
+		dataset.addSeries(constellation);
+		return dataset;
+	}
+    
+    public List<Double> modulate(String inputData) {
         inputData = padStringIfNecessery(inputData);
         log.info(inputData);
         List<String> grayCodeData = splitIntoGrayCodeStrings(inputData);
-
-        return null;
+        double ampl, phase, analog;
+        List<Double> analogData =  new ArrayList<Double>();
+        
+        for(int i=0; i<grayCodeData.size(); i++){
+        	ampl=(double) modulation.getAmplitudeAndPhase(grayCodeData.get(i)).getKey();
+        	phase=(double) modulation.getAmplitudeAndPhase(grayCodeData.get(i)).getValue();
+        	System.out.println(i+1+". ampl - " +ampl + ", phase - " +phase);
+        	System.out.print("analog - ");
+        	for(double x=Math.PI/2; x<=2*Math.PI; x=x+Math.PI/2){
+        		analog = (double)Math.round(ampl*Math.sin(x+Math.toRadians(phase))* 10000) / 10000;
+        		analogData.add(analog);
+        		System.out.print(analog + ", ");
+        	}
+        	System.out.println();
+        }
+        return analogData;
     }
 
     private String padStringIfNecessery(String inputData) {
