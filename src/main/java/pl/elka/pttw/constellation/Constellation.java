@@ -56,14 +56,14 @@ public class Constellation {
             modulation.put("0101", new AbstractMap.SimpleEntry(3.0000, 180.0000));
             modulation.put("0110", new AbstractMap.SimpleEntry(1.4142, 315.0000));
             modulation.put("0111", new AbstractMap.SimpleEntry(3.0000, 270.0000));
-            modulation.put("1000", new AbstractMap.SimpleEntry(4.2426, 270.0000));
-            modulation.put("1001", new AbstractMap.SimpleEntry(5.0000, 315.0000));
-            modulation.put("1010", new AbstractMap.SimpleEntry(4.2426, 180.0000));
-            modulation.put("1011", new AbstractMap.SimpleEntry(5.0000, 225.0000));
-            modulation.put("1100", new AbstractMap.SimpleEntry(4.2426, 90.0000));
-            modulation.put("1101", new AbstractMap.SimpleEntry(5.0000, 135.0000));
-            modulation.put("1110", new AbstractMap.SimpleEntry(4.2426, 0.0000));
-            modulation.put("1111", new AbstractMap.SimpleEntry(5.0000, 45.0000));
+            modulation.put("1000", new AbstractMap.SimpleEntry(5.0000, 270.0000));
+            modulation.put("1001", new AbstractMap.SimpleEntry(4.2426, 315.0000));
+            modulation.put("1010", new AbstractMap.SimpleEntry(5.0000, 180.0000));
+            modulation.put("1011", new AbstractMap.SimpleEntry(4.2426, 225.0000));
+            modulation.put("1100", new AbstractMap.SimpleEntry(5.0000, 90.0000));
+            modulation.put("1101", new AbstractMap.SimpleEntry(4.2426, 135.0000));
+            modulation.put("1110", new AbstractMap.SimpleEntry(5.0000, 0.0000));
+            modulation.put("1111", new AbstractMap.SimpleEntry(4.2426, 45.0000));
         }
 
         @Override
